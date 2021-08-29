@@ -29,6 +29,67 @@
 - js 사용
 - JSON 형식과 호환 쉬움
 
+-----
 
+# 알아두어야 할 JS
 
+## 1. setTimeOut
+ex) 대기시간이 0인 setTimeout
 
+## 2. Promise
+
+## 3. async, await
+
+## 4. 화살표 함수
+1) 객체를 리턴할 때 유의할 것 
+
+```JS
+const obj = function(x,y){
+    return {x:x,y:y};
+}
+
+const obj = function(x,y){ //위와 동일
+    return {x,y};
+}
+
+const obj = (x,y) => ({x,y}); //위와 동일
+// 중괄호를 그냥 작성하게 되면, 객체 리터럴인지 함수 body를 의미하는 것인지 알수 없어서, 객체를 반활할때 소괄호를 함께 씀
+```
+
+2) function을 완벽하게 대체하긴 어려움
+    - function에서는 각 본인의 this를 갖지만, 화살표 함수에서는 부모에서 this를 물려받음
+    - 대표적인 예제 : 태그 클릭 (function&this or 화살표 함수&인자)
+```JS
+button.addEventListener("click", function(){
+    console.log(this.textContent);
+});
+
+button.addEventListener("click", (e) => {
+    console.log(e.target.textContent);
+});
+
+```
+
+## 5. 업데이트된 객체 문법
+```JS
+
+const newObject = {
+    let es = 1;
+
+    sayJs(){
+        console.log("js"); //function 필요x
+    },
+    sayNode, //sayNode: sayNode -> key와 value가 동일하면 하나만 작성 가능
+    [es+6]: "hi" //[변수+값]과 같은 동적 속성명을 객체 속성명으로 사용가능
+};
+```
+
+## 6. 구조분해(비구조화) 할당
+ : this 사용시는 구조분해 할당x
+```JS
+const example = {a: 123, b:{c:135, d: 12}};
+
+const {a,b:{d}} = example; // 구조분해 할당
+console.log(a); //123
+console.log(d); //12
+```
