@@ -34,11 +34,78 @@
 # 알아두어야 할 JS
 
 ## 1. setTimeOut
-ex) 대기시간이 0인 setTimeout
+ex) 대기시간이 0인 setTimeout -> 바로 실행 되는 것 아님
+
+: 호출 스택에서 백그라운드로 이동함
+
 
 ## 2. Promise
 
+: promise 란 js 비동기 처리에 사용되는 객체(=내용이 실행되었지만, 결과를 아직 반환하지 않은 객체), 타이머보다 우선순위가 높음
+
+: 콜백과 다르게 코드를 분리할 수 있다는 것이 장점, 콜백 헬에서 나올 수 있음
+
+- then을 붙이면 결과를 반환함
+- 실행이 완료되지 않았으면 완료된 후에 then 내부 함수가 실행됨
+
+<프로미스 상태>
+- Pending(대기): 비동기 처리 로직이 완료되지 않은 상태
+- Fulfilled(이행): 비동기 처리가 완료되어 프로미스가 결과값을 반환해준 상태
+    - resolve(성공리턴값) -> then 으로 연결
+- Rejected(실패): 비동기 처리가 실패하거나 오류가 발생한 상태
+    - reject(실패리턴값) -> catch로 연결(하나라도 실패하면)
+    - Promise.allSettled로 실패한 것만 배열로 추려낼 수 있음
+- Finally 부분은 무조건 실행됨
+
+### Pending
+```JS
+new Promise(function(resolve, reject) { //resolve, reject : 콜백 함수 인자
+  // ...
+}); // 프로미스 메서드를 호출하면 대기 상태가 됨
+
+```
+
+### Fulfilled
+
+: resolve를 실행하면 이행 상태가 됨. then()을 이용해 처리 결과 값을 받을 수 있음
+```JS
+function getData() {
+  return new Promise(function(resolve, reject) {
+    var data = 100;
+    resolve(data);
+  });
+}
+
+// resolve()의 결과 값 data를 resolvedData로 받음
+getData().then(function(resolvedData) {
+  console.log(resolvedData); // 100
+});
+```
+### Rejected
+
+: reject를 실행하면 실패 상태가 되고, 실패한 이유를 catch()로 받을 수 있음
+
+-> error는 then()으로도 처리할 수 있지만, catch()로 처리하는게 더 효율적임
+```JS
+function getData() {
+  return new Promise(function(resolve, reject) {
+    reject(new Error("Request is failed"));
+  });
+}
+
+// reject()의 결과 값 Error를 err에 받음
+getData().then().catch(function(err) {
+  console.log(err); // Error: Request is failed
+});
+```
+
+
 ## 3. async, await
+
+: async, await을 사용하면 프로미스 코드를 더 줄일 수 있음
+
+- 변수 = await Promise; : Promise가 resolve 된 값이 변수에 저장
+- 변수 await 값; : 그 값이 변수에 저장
 
 ## 4. 화살표 함수
 1) 객체를 리턴할 때 유의할 것 
