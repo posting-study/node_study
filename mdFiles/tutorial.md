@@ -99,7 +99,6 @@ getData().then().catch(function(err) {
 });
 ```
 
-
 ## 3. async, await
 
 : async, await을 사용하면 프로미스 코드를 더 줄일 수 있음
