@@ -7,6 +7,22 @@
 - 객체를 로깅할때는 console.log 보다 console.dir
 - console.time / console.timeEnd를 사용해 사이의 시간을 알 수 있음
 
+# 모듈
+
+# process
+
+# os와 path
+
+# url & querystring
+
+# crypto & util
+
+# worker_threads
+
+# child_process
+
+
+# 버퍼와 스트림   
 
 
 
