@@ -71,7 +71,7 @@ getData().then(function(resolvedData) {
 3) Rejected(실패): 비동기 처리가 실패하거나 오류가 발생한 상태
 
 -> reject를 실행하면 실패 상태가 되고, 실패한 이유를 catch()로 받을 수 있다 
-    - 실행 중 하나라도 실패하면 catch로 연결\
+    - 실행 중 하나라도 실패하면 catch로 연결
     - error는 then()으로도 처리할 수 있지만, catch()로 처리하는게 더 효율적임
 
 ```JS
