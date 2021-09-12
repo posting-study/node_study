@@ -130,7 +130,8 @@ getOne() //실행 성공시 1
 callback 함수와 Promise의 단점을 보완하고, es6로 오면서 추가된 async/await에 대한 이야기는 다음 포스팅에서 진행하도록 하겠다.
 
 
-* 글을 쓰면서 참고한 글과 영상입니다
+** 글을 쓰면서 참고한 글과 영상입니다 **
+
 [인프런 - 노드 교과서 강의](https://www.inflearn.com/course/%EB%85%B8%EB%93%9C-%EA%B5%90%EA%B3%BC%EC%84%9C/dashboard)
 
 [드림코딩- JS 강의](https://www.youtube.com/watch?v=JB_yU6Oe2eE)
