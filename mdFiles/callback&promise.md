@@ -68,7 +68,7 @@ getData().then(function(resolvedData) {
 });
 ```
 
-3) Rejected(실패): 비동기 처리가 실패하거나 오류가 빌셍힌 싱테
+3) Rejected(실패): 비동기 처리가 실패하거나 오류가 발생한 상태
 
 -> reject를 실행하면 실패 상태가 되고, 실패한 이유를 catch()로 받을 수 있다 
     - 실행 중 하나라도 실패하면 catch로 연결\
