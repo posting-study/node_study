@@ -1,6 +1,7 @@
 # Posting
 
-- [callback, Promise, async/await]
+- [callback, Promise]
+- [async/await]
 
 # Node Study 
 
