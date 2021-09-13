@@ -58,3 +58,42 @@ getOne() //실행 성공시 1
     .then(getThree) // 1 => 2 => 3
     .then(console.log);
 */
+
+///callback.js 코드를 promise로 바꾸기
+class UserStorage {
+    loginUser(id, password){
+        return new Promise((resolve,reject)=>{
+             setTimeout(()=>{
+                if (
+                    (id === "yun" && password === "yun123") ||
+                    (id === "coding" && password === "master")
+                  ) resolve(id);
+                  else{
+                      reject(new Error("not found"))
+                  }
+             },2000)
+        })
+    }
+    getRoles(user) {
+        return new Promise((resolve, reject)=>{
+            setTimeout(() => {
+                if (user === "yun") {
+                  resolve({ name: "yun", role: "developer" });
+                } else {
+                  reject(new Error("not found"));
+                }
+              }, 1000); 
+        })
+      }
+}
+
+    
+
+const userStorage = new UserStorage();
+const id = prompt("enter your id");
+const password = prompt("enter your password");
+userStorage.loginUser(id,password)
+    .then(userStorage.getRoles)
+    .then(user => alert(`hello ${userWithRole.name}, u have a ${userWithRole.role} role`))
+    .catch(console.log);
+
