@@ -54,7 +54,6 @@ async function printNum_(){
     await delay(3000);  //비동기로 이루어지는 부분에 await를 달아줌 
     return "num"; //비동기 동작을 고민할 필요 x
 }
-
 ```
 
 
