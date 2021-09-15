@@ -1,9 +1,9 @@
 # async & await
 
-가장 최근에 나온 비동기 처리 패턴 문법으로, callback 함수와 Promise의 단점을 보완해주는 것이 특징인 async / await 문법을 살펴보도록 하겠다.
+가장 최근에 나온 비동기 처리 패턴 문법으로, 
+callback 함수와 Promise의 단점을 보완해주는 것이 특징인 async / await 문법을 살펴보도록 하겠다.
 
-## async & await 사용
-### 기본 문법
+## async & await 기본 문법
 ```JS
 async function 함수명() {
   await 비동기();
@@ -14,7 +14,7 @@ async function 함수명() {
 2. 함수 내부 로직 중 비동기 처리 코드 앞에 `await` 을 붙인다. 
     이때, 이 비동기 처리 로직은 `Promise 객체` 를 반환한다. (일반적으로 axios와 같은 api 호출 함수이다)
 
-### 예외 처리
+## 예외 처리
 
 Promise 에서 `.catch`를 사용했던 것처럼 `try catch`문을 사용한다.
 
@@ -33,17 +33,27 @@ async function checkId() {
   }
 }
 ```
-
-
-
-## async & await 특징
+## async & await과 Promise 코드 비교
 
 새로운 개념이 아닌, 기존의 Promise 코드를 더 쉽게 이용할 수 있게 한다.
 
 여러개의 비동기 처리 코드를 실행한다고 했을 때 Promise chain 코드와 비교해보면, 작성하고 이해하는데 편리한 코드를 짤 수 있도록 도와주는 것을 알 수 있다.
 
 ```JS
-// 코드 비교
+
+function delay(ms){
+    return new Promise(resolve => setTimeout(resolve,ms))
+}
+// Promise
+function printNum() {
+    return delay(3000)
+    .then(()=>"num");
+}
+// async & await
+async function printNum_(){
+    await delay(3000);  //비동기로 이루어지는 부분에 await를 달아줌 
+    return "num"; //비동기 동작을 고민할 필요 x
+}
 
 ```
 
