@@ -7,7 +7,9 @@
 - 객체를 로깅할때는 console.log 보다 console.dir
 - console.time / console.timeEnd를 사용해 사이의 시간을 알 수 있음
 
-# 모듈
+# 노드의 전역 객체
+
+브라우저에서는 `window`라면, 노드의 전역 객체는 `global`이 있다. 두 곳에서 공통으로 `globalThis`로 접근 가능하다.
 
 # process
 
