@@ -11,6 +11,22 @@
 
 브라우저에서는 `window`라면, 노드의 전역 객체는 `global`이 있다. 두 곳에서 공통으로 `globalThis`로 접근 가능하다.
 
+```JS
+console.log(this); //전역 scope의 this 는 빈 객체이다 -> {} 출력
+//this === module.exports === {} === exports
+function a(){
+    console.log(this===global); //함수안의 this는 global을 가리킨다
+}
+a(); //true
+```
+
+# require
+
+모듈을 실행만 하고, 안의 코드를 사용하지 않는 경우 쓰는 키워드
+
+`require('파일경로')` 를 선언하면 바로 사용
+
+
 # process
 
 # os와 path
