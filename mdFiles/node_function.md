@@ -26,9 +26,21 @@ a(); //true
 
 `require('파일경로')` 를 선언하면 바로 사용
 
+- require이 제일 위에 올 필요 없음
+- `require.cache` 에 한번 require한 모듈에 대한 caching 정보가 들어있음
+- `require.main`은 노드 실행 시 첫 모듈임
+- 두개의 모듈이 서로 require하는 상황인 `순환참조`를 만들지 않도록 조심해야함
 
 # process
 
+노드는 파일시스템 뿐만 아니라 운영체제에도 접근할 수 있다
+
+- `node > process` 에 들어가면 실행중인 노드 프로세스에 대한 정보를 확인할 수 있다
+- `process.env` : 시스템 환경 변수들이 들어있는 객체
+- `process.nextTick(콜백)`: 이벤트 루프가 다른 콜백 함수들보다 nextTick의 콜백함수를 우선적으로 처리한다
+    -> `setImmediate`,`setTimeout`보다 `promise`와 `nextTick`이 먼저 실행된다
+- `process.exit()` : 현재의 프로세스를 멈춤
+    -> 코드가 없거나 0이면 정상종료, 이외의 코드는 비정상 종료
 # os와 path
 
 # url & querystring
