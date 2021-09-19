@@ -2,7 +2,7 @@
 
 - [callback, Promise](https://github.com/posting-study/node_study/blob/main/mdFiles/callback&promise.md)
 
-- [async/await]
+- [async/await](https://github.com/posting-study/node_study/blob/main/postingFiles/async%26await.md)
 
 # Node Study 
 
