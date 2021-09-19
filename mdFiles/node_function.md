@@ -63,16 +63,18 @@ a(); //true
 - path.resolve는 절대경로로 인식, path.join은 상대경로로 처리 (절대경로는 루트폴더나 노드 프로세스가 실행되는 위치 기준, 상대경로는 현재 파일 위치가 기준)
 - 기본적으로 경로는  \ 하나를 사용해서 표시, 하지만 JS 문자열은 \\로 처리해야함 -> path 모듈은 위와 같은 경우에 발생하는 문제를 알아서 처리
 
-## url & querystring
+## url
+## querystring
 
-# crypto & util
+## crypto
+## util
 
-# worker_threads
+## worker_threads
 
-# child_process
+## child_process
 
 
-# 버퍼와 스트림   
+
 
 
 
