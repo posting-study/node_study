@@ -107,6 +107,8 @@ const url = require('url');
 
 ## worker_threads
 
+: worker_threads 모듈을 이용하면 멀티 스레드 방식으로 작업할 수 있음
+
 ## child_process
 
 
