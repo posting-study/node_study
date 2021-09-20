@@ -54,7 +54,7 @@ a(); //true
 
 ## path
 
-폴더와 파일의 경로를 쉽게 조작할 수 있도록 도와주는 모듈 -> 운영체제 별로 경로 구분자가 다르다!
+`폴더와 파일의 경로를 쉽게 조작`할 수 있도록 도와주는 모듈 -> 운영체제 별로 경로 구분자가 다르다!
 
 - Window : C:\Users\user1 -> \로 구분
 - POSIX(맥, 리눅스 등등): C:/Users/user1 -> /로 구분
@@ -64,7 +64,35 @@ a(); //true
 - 기본적으로 경로는  \ 하나를 사용해서 표시, 하지만 JS 문자열은 \\로 처리해야함 -> path 모듈은 위와 같은 경우에 발생하는 문제를 알아서 처리
 
 ## url
+: `인터넷 주소를 쉽게 조작`하도록 도와주는 모듈
+
+url 처리에는 크게 두가지 방식이 있는데, 
+
+1)노드 버전 7에서 추가된 WHATWG 방식의 url과, 2) 기존 방식의 url 이 존재한다.
+
+1) WHATWG 방식 url
+
+- WHATWG에만 있는 username, password, origin, searchParams 속성이 존재함
+- WHATWG 방식은 search 부분을 searchParams라는 특수한 객체로 반환하므로 유용합니다. search 부분은 보통 주소를 통해 데이터를 전달할 때 사용됩니다. search는 물음표(?)로 시작하고, 그 뒤에 키=값 형식으로 데이터를 전달합니다. 여러 키가 있을 경우에는 &로 구분합니다.
+```JS
+const url = require('url');
+
+```
+
+2) 기존 방식 url
+
+- url.parse(주소): 주소를 분해함. WHATWG 방식과 비교하면 username과 password 대신 `auth 속성`이 있고, searchParams 대신 `query`가 있음.
+- url.format(객체): `WHATWG 방식 url과 기존 노드의 url을 모두 사용`할 수 있습니다. `분해되었던 url 객체를 다시 원래 상태로 조립`합니다.
+
+
+-> query 같은 문자열보다 searchParams가 유용함
+
+
 ## querystring
+: WHATWG 방식의 url 대신 `기존 노드의 url`을 사용할 때, `search 부분을 사용하기 쉽게 객체로 만드는` 모듈
+
+- querystring.parse(쿼리): url의 query 부분을 자바스크립트 객체로 분해
+- querystring.stringify(객체): 분해된 query 객체를 문자열로 다시 조립
 
 ## crypto
 ## util
