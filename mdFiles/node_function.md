@@ -95,7 +95,15 @@ const url = require('url');
 - querystring.stringify(객체): 분해된 query 객체를 문자열로 다시 조립
 
 ## crypto
+
+: 다양한 방식의 암호화를 도와주는 모듈
+
+
 ## util
+: 각종 편의 기능을 모아둔 모듈 (API가 많이 생성되기도 하지만, 그만큼 많이 사라지기도 함)
+
+- util.deprecate: 함수가 deprecated 처리되었음을 알림. 첫 번째 인수로 넣은 함수를 사용했을 때 경고 메시지가 출력, 두 번째 인수로 경고 메시지 내용를 넣음. 
+- util.promisify: 콜백 패턴을 프로미스 패턴으로 바꿈. 바꿀 함수를 인수로 제공. 이렇게 바꿔두면 async/await 패턴까지 사용할 수 있음.
 
 ## worker_threads
 
