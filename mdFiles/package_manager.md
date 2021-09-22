@@ -8,7 +8,24 @@
 - 노드 프로젝트를 시작할 때 `npm init` 으로 package.json 파일을 만듬 (그냥 파일을 생성해도 됨)
     -> package name, version, description, entry point, author, license(오픈소스면 보통 MIT) 등등 작성
 - 스크립트 실행 명령어 `run` (단 start 명령어는 run 생략 가능 -> npm (run) start)
-
+- 패키지 글로벌 설치 지양.  `npx`(노드 패키지 실행) 명령어를 이용해 실행한다
 # package-lock.json
 : node_modules 에 들어 있는 패키지들의 정확한 버전과 의존 관계가 담김 
 -> npm 으로 패키지를 설치/수정/삭제 할 때마다 패키지들 간의 내부 의존 관계를 파일에 저장함
+
+# 패키지 버전
+: 노드 패키지의 버전은 `SemVer versioning` 을 따른다.
+    -> Major, Minor, Patch 로 이루어진 세자리 버전 방식임
+- Major: 하위버전과 호환되지 않은 수정사항
+- Minor: 하위버전과 호환되는 수정사항
+- Patch: 기능에 버그 해결
+
+버전 앞에 기호를 붙여 업데이트 범위를 표시한다.
+- `^` : 패키지 업데이트 시 minor 버전까지만 업데이트함 (^1.1.1 -> 2.0.0 버전으로 업데이트 되지 않음)
+- `~` : 패키지 업데이트 시 patch 버전까지만 업데이트함 (^1.1.1 -> 1.2.0 버전으로 업데이트 되지 않음)
+- `@latest` : 최신 버전을 의미
+- `@next` : 가장 최신 배포판으로 사용 가능하나 불안정함
+
+# npm 배포
+- `npm publish` : 만든 패키지를 배포 (타 패키지와 이름이 겹치지 않게 설정)
+- `npm unpublish` :  배포 후 72시간 내에 만든 패키지를 배포 중단
