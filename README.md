@@ -17,5 +17,5 @@
 
 - [http 모듈로 서버 만들기]
 
-- [패키지 매니저]
+- [패키지 매니저](https://github.com/posting-study/node_study/blob/main/mdFiles/package_manager.md)
 
