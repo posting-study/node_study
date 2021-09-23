@@ -74,10 +74,8 @@ url 처리에는 크게 두가지 방식이 있는데,
 
 - WHATWG에만 있는 username, password, origin, searchParams 속성이 존재함
 - WHATWG 방식은 search 부분을 searchParams라는 특수한 객체로 반환하므로 유용합니다. search 부분은 보통 주소를 통해 데이터를 전달할 때 사용됩니다. search는 물음표(?)로 시작하고, 그 뒤에 키=값 형식으로 데이터를 전달합니다. 여러 키가 있을 경우에는 &로 구분합니다.
-```JS
-const url = require('url');
+- `searchParams` :  WHATWG 방식에서 queryString(search) 부분 처리를 도와주는 객체
 
-```
 
 2) 기존 방식 url
 
@@ -86,7 +84,6 @@ const url = require('url');
 
 
 -> query 같은 문자열보다 searchParams가 유용함
-
 
 ## querystring
 : WHATWG 방식의 url 대신 `기존 노드의 url`을 사용할 때, `search 부분을 사용하기 쉽게 객체로 만드는` 모듈
@@ -97,6 +94,19 @@ const url = require('url');
 ## crypto
 
 : 다양한 방식의 암호화를 도와주는 모듈
+
+1) 단방향 암호화: `Hash 기법`
+- createHash(알고리즘): 사용할 해시 알고리즘 넣음
+- update(문자열): 변환할 문자열 넣음
+- digest(인코딩): 인코딩할 알고리즘 넣음
+
+2) 양방향 암호화
+- 대칭형 암호화(같은키로 암호화, 복호화) 추천: AES 암호화
+- 비대칭형 암호화 추천: RSA 암호화
+
+### 추천 
+- 기본 노드에 있는 crypto 모듈은 사용하기 매우 어려움(암호학 지식이 있어야 함) -> 그부분을 조금이나마 도와주는 `crypto-js` 사용
+- `AWS KMS(Key Management Service` 를 이용해 암호화 API 구축하기
 
 
 ## util
@@ -109,8 +119,25 @@ const url = require('url');
 
 : worker_threads 모듈을 이용하면 멀티 스레드 방식으로 작업할 수 있음
 
+```JS
+const { 
+  Worker, isMainThread, parentPort,
+} = require('worker_threads'); 
+
+if (isMainThread) { // 부모스레드일 때
+  const 
+  worker = new Worker(__filename); 
+  //부모 스레드에서 할일
+} else { // 새로 생성한 워커스레드일때
+  //워커 스레드에서 할일
+}
+```
 ## child_process
 
+: 노드에서 다른 프로그램을 실행하고 싶거나 명령어를 수행하고 싶을 때 사용하는 모듈
+
+-> 다른 언어의 코드(예를 들면, 파이썬)를 실행하고 결괏값을 받을 수 있음.
+ 이름이 child_process(자식 프로세스)인 이유는 현재 노드 프로세스 외에 새로운 프로세스를 띄워서 명령을 수행하고, 노드 프로세스에 결과를 알려주기 때문.
 
 
 
