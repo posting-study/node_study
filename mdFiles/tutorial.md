@@ -159,3 +159,63 @@ const {a,b:{d}} = example; // 구조분해 할당
 console.log(a); //123
 console.log(d); //12
 ```
+
+## 7. ES 모듈 import/export
+
+1. `Named Exports` -> 원하는 만큼의 많은 수의 코드를 import/export 시킬 수 있음
+
+주의) export 한 함수의 이름과 import한 함수의 이름이 반드시 같아야 함. as 키워드를 이용해 변경 가능
+
+```JS
+//export file
+export const plus = (a,b) => a+b;
+export const minus = (a,b) => a-b;
+
+///import file
+import {plus} from "파일 경로"; //함수의 이름이 반드시 같아야 함
+//import {plus as add}from "파일 경로"; -> as 키워드를 이용해 변경 가능
+```
+
+2. `Default Exports` -> 각 파일마다 단 한개의 defualt export 만 존재 가능.
+
+모듈의 모든 함수(코드)를 export 하고, 모든 함수(코드)를 import함. (원하는 이름으로 import 가능)
+
+```JS
+//export file
+const plus = (a,b) => a+b;
+const minus = (a,b) => a-b;
+export default {plus, minus}; // 갯수는 원하는 대로
+
+//import file
+import math from "파일 경로";  //default로 위의 모든 함수를 import 함
+```
+
+위의 Named Exports, Default Exports를 섞을 수도 있음
+```JS
+//export file
+const plus = (a,b) => a+b;
+const minus = (a,b) => a-b;
+export const multiple = (a,b) => a*b;
+export default {plus,minus}; // 갯수는 원하는 대로
+
+//import file
+import math,{multiple} from "파일 경로"; 
+// math: default, {multiple}: named
+```
+3. `*`(all) 이용 import
+
+default export가 없는 파일에서, 모든 exported 된 내용을 import 하고 싶을 때 사용
+```JS
+//export file
+const plus = (a,b) => a+b;
+const minus = (a,b) => a-b;
+const multiple = (a,b) => a*b;
+
+//import file
+import * from "파일 경로";
+```
+
+### 결론
+- 필요한 것만 import함
+- Named Export로 함수를 정의하는 연습을 하는 것이 도움됨
+- `Dynamic import`를 사용하면, 실제로 유저가 사용할 모듈만 import함. (모두 설치하고 실행하는 것이 아니라 로딩 속도 줄어들음) -> 이벤트 작동시 실행할 함수 안에 `import` 함수 실행
