@@ -15,7 +15,7 @@
 
 - [노드 기능 - 파일 시스템 접근하기](https://github.com/posting-study/node_study/blob/main/postingFiles/file_system.md)
 
-- [http 모듈로 서버 만들기]
+- [http 모듈로 서버 만들기](https://github.com/posting-study/node_study/blob/main/postingFiles/http_server.md)
 
 - [패키지 매니저](https://github.com/posting-study/node_study/blob/main/mdFiles/package_manager.md)
 
