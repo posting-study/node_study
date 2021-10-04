@@ -23,7 +23,7 @@
     - 주소 하나가 요청 메서드를 여러 개 가질 수 있음
     
 -------
-[코드](https://github.com/posting-study/node_study/blob/main/codeFiles/REST/restServer.js)
+[실습코드](https://github.com/posting-study/node_study/blob/main/codeFiles/REST/restServer.js)
 
 - require로 http 모듈을 불러옴
 - http 모듈의 `createServer` 함수로 서버 생성
