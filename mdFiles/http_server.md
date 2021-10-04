@@ -91,6 +91,17 @@ http.createServer((req,res)=>{
 
 6. https, http2
 
+`https`:  웹 서버에 SSL 암호화를 추가하는 모듈
+-> GET이나 POST 요청을 할 때 오가는 데이터를 암호화해서 중간에서 탈취한 내용을 확인할 수 없게 함
+- https 인증서는 인증 기관에서 구입해야하고, Let's Encrypt 같은 기관에서 무료로 발급 가능
+- createServer 메서드가 인수를 두개 받음. (`인증서에 관련된 옵션 객체`, `서버 로직`)
+- 인증서를 구입하면 pem, crt, key 확장자를 가진 파일들이 제공되는데, 이 파일을 `fs.readFileSync` 메서드로 읽어서 cert,key,ca 옵션에 알맞게 넣음.
+- 실제 서버에서는 `443 포트`를 사용
+
+`http2`: SSL 암호화와 더불어 최신 HTTP 프로토콜은 http/2를 사용하는 모듈
+- 요청 및 응답 방식이 기존 http 보다 개선됨
+- https 보안도 적용하기 때문에, 속도와 보안 면에서 좋음
+- 실무에서 배포시 기존 https 코드에서, https 모듈을 `http2`로, createServer 메서드를 `createSecureServer` 로 변경
 
 7. cluster
 
