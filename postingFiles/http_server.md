@@ -23,7 +23,7 @@
     - 주소 하나가 요청 메서드를 여러 개 가질 수 있음
     
 -------
-[코드]()
+[실습코드](https://github.com/posting-study/node_study/blob/main/codeFiles/REST/restServer.js)
 
 - require로 http 모듈을 불러옴
 - http 모듈의 `createServer` 함수로 서버 생성
@@ -112,7 +112,7 @@ http.createServer((req,res)=>{
 
 -> 메모리를 공유하지 못한다는 단점이 있어(세션을 메모리에 저장할 때 문제가 생김), 이를 해결하기 위해 `Redis`와 같은 서버를 도입함으로 해결할 수 있다
 
-[코드]()
+[코드](https://github.com/posting-study/node_study/blob/main/codeFiles/REST/cluster.js)
 
 - cluster 에는 `마스터 프로세스`와 `워커 프로세스`가 있음
 - 마스터 프로세스는 CPU 개수만큼 워커 프로세스를 만들고, 포트(코드에서 8086)에서 대기함
