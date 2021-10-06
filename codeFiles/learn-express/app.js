@@ -8,6 +8,11 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/index.html'));
 });
 
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.status(500).send(err.message);
+  });
+  
 app.listen(app.get('port'), () => {
   console.log(app.get('port'), '번 포트에서 대기 중');
 });
