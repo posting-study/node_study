@@ -7,7 +7,7 @@
 - 주의사항) 프로젝트 폴더 이름과 프로젝트 이름이 같으면 안됨
 - 노드 프로젝트를 시작할 때 `npm init` 으로 package.json 파일을 만듬 (그냥 파일을 생성해도 됨)
     -> package name, version, description, entry point, author, license(오픈소스면 보통 MIT) 등등 작성
-- 스크립트 실행 명령어 `run` (단 start 명령어는 run 생략 가능 -> npm (run) start)
+- 스크립트 실행 명령어 `run` (단 start와 test 명령어는 run 생략 가능 -> npm (run) start)
 - 패키지 글로벌 설치 지양.  `npx`(노드 패키지 실행) 명령어를 이용해 실행한다
 # package-lock.json
 : node_modules 에 들어 있는 패키지들의 정확한 버전과 의존 관계가 담김 
