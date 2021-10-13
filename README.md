@@ -21,9 +21,13 @@
 
 - [패키지 매니저](https://github.com/posting-study/node_study/blob/main/mdFiles/package_manager.md)
 
-- [익스프레스 웹 서버 만들기]
+- [익스프레스 웹 서버 만들기](https://github.com/posting-study/node_study/blob/main/postingFiles/expressServer_1.md)
+
+- [익스프레스: 미들웨어]
 
 - [MySQL]
+
+- [시퀄라이즈]
 
 - [몽고디비]
 
