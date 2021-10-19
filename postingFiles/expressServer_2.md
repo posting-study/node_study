@@ -2,6 +2,7 @@
 미들웨어의 유용한 기능들을 패키지로 만들어두었는데, 실무에 자주 사용하는 것들을 중점적으로 살펴보려 한다.
 - 쿠키, 세션
 - 요청의 바디를 stream으로 형식으로 받고, 다시 모아주는 것 -> 이런것들이 귀찮음
+- http 모듈로만 구성했을 때와 비교하면서 개선된 점을 알아보자
 
 ### 1. 패키지 설치하기
 
@@ -22,12 +23,16 @@ COOKIE_SECRET=cookiesecret
 - 보안과 설정의 편의성 이유로 `process.env`를 별도의 파일로 관리함. 비밀 키들을 소스 코드에 그대로 적어두면 소스 코드가 유출되었을 때 키도 같이 유출됨
 -  .env 같은 별도의 파일에 비밀 키를 적어두고 `dotenv 패키지로 비밀 키를 로딩`하는 방식으로 관리함. 소스 코드가 유출되더라도 .env 파일만 잘 관리하면 비밀 키는 지킬 수 있음.
 
-### `bodyParser` -> 요즘 잘 안씀
-bodyParser의 기능이 Express 안에 다시 들어감. 밑 코드로 대체
+### 0. `bodyParser` -> 요즘 잘 안씀
+bodyParser의 기능이 Express 안에 다시 들어감. 다음 코드로 대체
 ```JS
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 ```
+- express.json(): 클라이언트에서 받은 json 파일을 파싱해서 req.body에 넣어줌
+- express.urlencoded({ extended: true })) : form을 파싱해줌. extended가 `true면 qs모듈`, false면 querystring 모듈을 사용 (true를 권장)
+- form에서 이미지나 파일을 보내는 경우, urlencoded에서 처리를 하지 못하기에, multer를 따로 써줘야 함
+
 ### 1.`morgan`
 : morgan을 연결하면 기존 로그 외에 추가적인 로그를 볼 수 있음
 ```JS
@@ -36,7 +41,7 @@ app.use(morgan('dev'));
 -> dev 모드에서 로그가 `[HTTP 메서드] [주소] [HTTP 상태 코드] [응답 속도] - [응답 바이트]` 형식으로 찍힘
 
 - 인수로 dev 외에 combined, common, short, tiny 등을 넣을 수 있음 
-- 개발 환경에서는 dev를, 배포 환경에서는 combined를 주로 사용
+- 개발 환경에서는 dev를, 배포 환경에서는 combined를 주로 사용 (combined가 좀 더 자세함)
 
 ### `static`
 : 정적인 파일들을 제공하는 라우터 역할

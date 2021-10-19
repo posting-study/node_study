@@ -52,7 +52,7 @@ const app = express();
 
 - 라우터: 라우팅의 역할을 하는 것
   - 요청마다 `app.get()` 메소드를 호출하여 라우터로 사용할 수 있음
-  - `express.Router()` , Express에서 제공하는 라우터 미들웨어 사용 가능
+  - `express.Router()`: Express에서 제공하는 라우터 미들웨어 사용 가능
 
 
 ### 1. Express 서버에 미들웨어 연결
