@@ -24,6 +24,7 @@ COOKIE_SECRET=cookiesecret
 -  .env 같은 별도의 파일에 비밀 키를 적어두고 `dotenv 패키지로 비밀 키를 로딩`하는 방식으로 관리함. 소스 코드가 유출되더라도 .env 파일만 잘 관리하면 비밀 키는 지킬 수 있음.
 
 ### 0. `bodyParser` -> 요즘 잘 안씀
+: 요청의 본문에 있는 데이터를 해석해서 req.body 객체로 만들어주는 미들웨어
 bodyParser의 기능이 Express 안에 다시 들어감. 다음 코드로 대체
 ```JS
 app.use(express.json());
@@ -31,7 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 ```
 - express.json(): 클라이언트에서 받은 json 파일을 파싱해서 req.body에 넣어줌
 - express.urlencoded({ extended: true })) : form을 파싱해줌. extended가 `true면 qs모듈`, false면 querystring 모듈을 사용 (true를 권장)
-- form에서 이미지나 파일을 보내는 경우, urlencoded에서 처리를 하지 못하기에, multer를 따로 써줘야 함
+- form에서 이미지나 파일(멀티파트 데이터)을 보내는 경우, urlencoded에서 처리를 하지 못하기에, multer 모듈을 따로 써줘야 함
 
 ### 1.`morgan`
 : morgan을 연결하면 기존 로그 외에 추가적인 로그를 볼 수 있음
@@ -51,8 +52,8 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 ```
 - 따로 설치할 필요 없이 express 객체 안에서 꺼내 사용 가능
 - 함수의 인수로 정적 파일들이 담겨 있는 폴더를 지정
+- 실제 서버의 폴더 경로에는 public이 들어있지만, 요청 주소에는 public이 들어있지 않음 -> 서버의 폴더 경로와 요청 경로가 달라 외부인이 서버의 구조를 파악할 수 없어 보안에 도움이 됨
+- 파일을 직접 읽어서 전송할 필요가 없음
+- 요청 경로에 해당하는 파일이 있으면 응답으로 파일을 보내고 다음 미들웨어를 실행하지 않음(next를 호출하지 않음), 파일이 없으면 내부적으로 next를 호출함
 ### `cookieParser`
 : 요청에 있는 쿠키를 해석해 `req.cookies` 객체로 만듬
-### urlencoded
-- form 파싱시
-- extended: true ->  
