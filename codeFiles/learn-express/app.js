@@ -1,21 +1,20 @@
 const dotenv = require('dotenv');
 const path = require('path');
-
 const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-
-
 const { encode } = require('punycode');
-
 dotenv.config();
 const app = express();
+
 app.set('port', process.env.PORT || 3000);
 
-app.use(morgan('dev'));
-app.use(cookieParser());
+app.use(morgan('dev')); //morgan
 
+app.use('/', express.static(path.join(__dirname, 'public'))); //static
+
+app.use(cookieParser()); //cookieParser
 app.get('/',(req,res,next)=>{
   req.cookies //{mycookie: 'test' }
   req.signedCookies; //서명화된(암호화된)쿠키
@@ -30,7 +29,7 @@ app.get('/',(req,res,next)=>{
   })
 })
 
-app.use('/', express.static(path.join(__dirname, 'public')));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
