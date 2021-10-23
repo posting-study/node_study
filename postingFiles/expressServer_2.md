@@ -44,7 +44,7 @@ app.use(morgan('dev'));
 - 인수로 dev 외에 combined, common, short, tiny 등을 넣을 수 있음 
 - 개발 환경에서는 dev를, 배포 환경에서는 combined를 주로 사용 (combined가 좀 더 자세함)
 
-### `static`
+### 2. `static`
 : 정적인 파일들을 제공하는 라우터 역할
 ```JS
 app.use('요청 경로', express.static('실제 경로'));
@@ -60,6 +60,22 @@ app.use('/', express.static(path.join(__dirname, 'public'))); //예시
 -> 쓰지 않을 미들웨어를 거쳐서 실행하는 것은 비효율적. 그래서 `미들웨어 간의 순서가 중요`하다. 대부분의 미들웨어는 내부에서 자체적으로 next를 실행한다
 
 -> 보통 morgan 뒤에 사용하거나, 허용된 특정 유저에게만 제공하는 상황이면 cookieParser, session 뒤에 사용할 수도 있다
-### `cookieParser`
+### 3. `cookieParser`
 : 요청에 있는 쿠키를 해석해 `req.cookies` 객체로 만듬
+```JS
+app.use(cookieParser(비밀키));
+```
+- 첫번째 인수로 비밀키를 넣어줌. 서명된 쿠키가 있는 경우, 제공한 비밀 키를 통해 해당 쿠키가 내 서버가 만든 쿠키임을 검증할 수 있음
+- 쿠키는 클라이언트에서 위조하기 쉬우므로 비밀키를 통해 만들어낸 서명을 쿠키 값 뒤에 붙임
+- 쿠키의 옵션 중 signed 라는 옵션을 true로 설정하면 쿠키 뒤에 서명이 붙음. (대부분 서명 옵션을 켜두는 것이 좋음)
+- 서명된 쿠키는 `req.signedCookies` 객체에 들어있음
+
+ex) name = cookie 라는 쿠키를 보냈다면, req.cookies는 {name: 'cookie'}이 됨. (유효기간 지난 쿠키는 알아서 걸러짐)
+서명된 쿠키는 name = cookie.sign 과 같은 모양이 됨
+
+- 쿠키를 생성 / 제거 하기 위해서는 `res.cookie`, `res.clearCookie` 메서드를 사용
+- 쿠키를 지우려면 키와 값, 옵션이 정확히 일치해야 지워짐.(단, expires나 maxAge 옵션은 불일치해도 됨)
+
+
+
 
