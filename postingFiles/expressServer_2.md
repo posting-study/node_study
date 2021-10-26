@@ -5,7 +5,6 @@
 - http 모듈로만 구성했을 때와 비교하면서 개선된 점을 알아보자
 
 ### 1. 패키지 설치하기
-
 ```BASH
 npm i morgan cookie-parser express-session dotenv
 ```
@@ -76,6 +75,22 @@ ex) name = cookie 라는 쿠키를 보냈다면, req.cookies는 {name: 'cookie'}
 - 쿠키를 생성 / 제거 하기 위해서는 `res.cookie`, `res.clearCookie` 메서드를 사용
 - 쿠키를 지우려면 키와 값, 옵션이 정확히 일치해야 지워짐.(단, expires나 maxAge 옵션은 불일치해도 됨)
 
-
+### 4.`express-session`
+: 세션 관리용 미들웨어. 세션을 구현하거나 특정 사용자를 위한 데이터를 임시적으로 저장해둘 때 유용함
+- 세션은 사용자별로 req.session 객체 안에 유지됨
+- 1.5 버전 이후 순서는 중요하지 않게 되었지만, 어떤 버전을 사용하고 있는지 모른다면 cookie-parser 미들웨어 뒤에 놓는 것이 안전함
+- 인수로 세션에 대한 설정 
+    - `resave`: 요청이 올 때 세션에 수정 사항이 생기지 않더라도 세션을 다시 저장할지 설정
+    - `saveUninitialized`: 세션에 저장할 내역이 없더라도 처음부터 세션을 생성할지 설정
+- express-session은 세션 관리 시 클라이언트에 쿠키를 보냄(`세션 쿠키`). 안전하게 쿠키를 전송하려면 **쿠키에 서명을 추가**해야 하고, 쿠키를 서명하는 데 secret의 값이 필요함. 이때 cookie-parser의 secret과 같게 설정하는 것이 좋음
+    - 세션 쿠키의 이름은 name 옵션으로 설정합니다. 기본 이름 (connect.sid)
+    - `cookie` 옵션: 세션 쿠키에 대한 설정
+- express-session으로 만들어진 `req.session 객체`에 값을 대입하거나 삭제해서 세션을 변경
+    - req.session.destroy: 세션 한번에 삭제
+    - req.sessionID: 현재 세션의 id
+    - req.session.save: 세션 강제 저장 (일반적으로 요청이 끝날 때 자동으로 호출되므로 직접 save 메서드를 호출할 일은 거의 없음)
+- 세션 쿠키의 모양
+    - express-session에서 서명한 쿠키 앞에는 s:이 붙음
+    - 실제로는 encodeURIComponent 함수가 실행되어 s%3A가 됨. s%3A의 뒷부분이 실제 암호화된 쿠키 내용이고, 이 모양을 보고 이 쿠키가 express-session 미들웨어에 의해 암호화된 것이라 알 수 있다.
 
 
