@@ -10,7 +10,6 @@ callback 함수는 다른 함수의 매개변수로 넘겨진 함수를 의미�
 
 ```JS
 // 간단한 callback 함수 예시
-
 function printNumber(num){ 
     num(); //callback 함수
 }
