@@ -1,6 +1,6 @@
 # Posting
 
-- [callback, Promise](https://github.com/posting-study/node_study/blob/main/mdFiles/callback&promise.md)
+- [callback, Promise](https://github.com/posting-study/node_study/blob/main/postingFiles/callback%26promise.md)
 
 - [async/await](https://github.com/posting-study/node_study/blob/main/postingFiles/async%26await.md)
 
