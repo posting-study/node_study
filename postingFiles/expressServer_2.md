@@ -94,3 +94,14 @@ ex) name = cookie 라는 쿠키를 보냈다면, req.cookies는 {name: 'cookie'}
     - 실제로는 encodeURIComponent 함수가 실행되어 s%3A가 됨. s%3A의 뒷부분이 실제 암호화된 쿠키 내용이고, 이 모양을 보고 이 쿠키가 express-session 미들웨어에 의해 암호화된 것이라 알 수 있다.
 
 
+### 5.multer 
+
+### 6.dotenv
+
+### 7.라우터 분리하기
+
+### 8. Pug 템플릿 엔진
+
+
+### 9. 넌적스 템플릿 엔진
+
