@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const { encode } = require('punycode');
 dotenv.config();
-const app = express();
+const app = express(); //Express 모듈을 실행해 app 변수에 할당 
 
 app.set('port', process.env.PORT || 3000);
 

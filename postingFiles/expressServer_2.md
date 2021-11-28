@@ -94,6 +94,28 @@ ex) name = cookie 라는 쿠키를 보냈다면, req.cookies는 {name: 'cookie'}
     - 실제로는 encodeURIComponent 함수가 실행되어 s%3A가 됨. s%3A의 뒷부분이 실제 암호화된 쿠키 내용이고, 이 모양을 보고 이 쿠키가 express-session 미들웨어에 의해 암호화된 것이라 알 수 있다.
 
 
+### 미들웨어 특성 총정리
+```JS
+app.use((req, res, next) => {
+  console.log('모든 요청에 다 실행됩니다.');
+  next();
+});
+
+app.use(
+  morgan('dev'),
+  express.static('/', path.join(__dirname, 'public')),
+  express.json(),
+  express.urlencoded({ extended: false }),
+  cookieParser(process.env.COOKIE_SECRET),
+);
+```
+- 미들웨어는 req, res, next를 매개변수로 가지는 함수(에러 처리 미들웨어만 예외적으로 err, req, res, next를 가짐)로서 app.use나 app.get, app.post 등으로 장착한다.
+- 특정한 주소의 요청에만 미들웨어가 실행되게 하려면 첫 번째 인수로 주소를 넣으면 된다.
+- 동시에 여러 개의 미들웨어를 장착할 수도 있으며, 다음 미들웨어로 넘어가려면 next 함수를 호출해야 한다. 위 코드의 미들웨어들은 내부적으로 next를 호출하고 있으므로 연달아 쓸 수 있다. next를 호출하지 않는 미들웨어는 res.send나 res.sendFile 등의 메서드로 응답을 보내야 한다.
+- express.static과 같은 미들웨어는 정적 파일을 제공할 때 next 대신 res.sendFile 메서드로 응답을 보낸다. 따라서 정적 파일을 제공하는 경우에 express.json, express.urlencoded, cookieParser 미들웨어는 실행되지 않는다. 
+미들웨어 장착 순서에 따라 어떤 미들웨어는 실행되지 않을 수도 있다!
+- 만약 next도 호출하지 않고 응답도 보내지 않으면 클라이언트는 응답을 받지 못해 기다리게 된다.
+
 ### 5.multer 
 
 ### 6.dotenv
