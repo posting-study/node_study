@@ -96,11 +96,6 @@ ex) name = cookie 라는 쿠키를 보냈다면, req.cookies는 {name: 'cookie'}
 
 ### 미들웨어 특성 총정리
 ```JS
-app.use((req, res, next) => {
-  console.log('모든 요청에 다 실행됩니다.');
-  next();
-});
-
 app.use(
   morgan('dev'),
   express.static('/', path.join(__dirname, 'public')),
@@ -113,9 +108,43 @@ app.use(
 - 특정한 주소의 요청에만 미들웨어가 실행되게 하려면 첫 번째 인수로 주소를 넣으면 된다.
 - 동시에 여러 개의 미들웨어를 장착할 수도 있으며, 다음 미들웨어로 넘어가려면 next 함수를 호출해야 한다. 위 코드의 미들웨어들은 내부적으로 next를 호출하고 있으므로 연달아 쓸 수 있다. next를 호출하지 않는 미들웨어는 res.send나 res.sendFile 등의 메서드로 응답을 보내야 한다.
 - express.static과 같은 미들웨어는 정적 파일을 제공할 때 next 대신 res.sendFile 메서드로 응답을 보낸다. 따라서 정적 파일을 제공하는 경우에 express.json, express.urlencoded, cookieParser 미들웨어는 실행되지 않는다. 
-미들웨어 장착 순서에 따라 어떤 미들웨어는 실행되지 않을 수도 있다!
-- 만약 next도 호출하지 않고 응답도 보내지 않으면 클라이언트는 응답을 받지 못해 기다리게 된다.
 
+=>미들웨어 장착 순서에 따라 어떤 미들웨어는 실행되지 않을 수도 있다!
+- 만약 next도 호출하지 않고 응답도 보내지 않으면 클라이언트는 응답을 받지 못해 기다리게 된다.
+- next에 인수를 넣을 수 있는데, 인수를 넣으면 특수한 동작을 한다.
+    -  `route` 라는 문자열을 넣으면 다음 라우터의 미들웨어로 바로 이동
+    - 그 외의 인수를 넣는다면 바로 에러 처리 미들웨어로 이동. 이때의 인수는 에러 처리 미들웨어의 err 매개변수가 된다. 라우터에서 에러가 발생할 때 에러를 next(err)을 통해 에러 처리 미들웨어로 넘긴다.
+- 미들웨어 간에 데이터를 전달하는 방법도 있다. 세션을 사용한다면 req.session 객체에 데이터를 넣어도 되지만, 세션이 유지되는 동안에 데이터도 계속 유지된다는 단점이 있기에 요청이 끝날 때까지만 데이터를 유지하고 싶다면 req 객체에 데이터를 넣어둔다.
+```JS
+app.use((req, res, next) => {
+  req.data = '데이터 넣기';
+  next();
+}, (req, res, next) => {
+  console.log(req.data); // 데이터 받기
+  next();
+});
+```
+- 현재 요청이 처리되는 동안 req.data를 통해 미들웨어 간에 데이터를 공유할 수 있다. 새로운 요청이 오면 req.data는 초기화된다. (속성명이 꼭 data일 필요는 없지만 다른 미들웨어와 겹치지 않게 조심해야 한다 -> 예를 들어 속성명을 body로 한다면(req.body) body-parser 미들웨어와 기능이 겹치게 된다)
+- 미들웨어 안에 미들웨어를 넣는 유용한 패턴 한가지
+```JS
+app.use(morgan('dev'));
+// 또는
+app.use((req, res, next) => {
+  morgan('dev')(req, res, next);
+});
+
+// => 두 방식은 같은 기능을 한다.
+```
+=> 이 패턴이 유용한 이유는 기존 미들웨어의 기능을 확장할 수 있기 때문이다. 다음과 같이 분기 처리를 할 수도 있다.
+```JS
+app.use((req, res, next) => {
+  if (process.env.NODE_ENV === 'production') {
+    morgan('combined')(req, res, next);
+  } else {
+    morgan('dev')(req, res, next);
+  }
+});
+```
 ### 5.multer 
 
 ### 6.dotenv
