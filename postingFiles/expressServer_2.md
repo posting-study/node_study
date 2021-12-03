@@ -146,13 +146,47 @@ app.use((req, res, next) => {
 });
 ```
 ### 5.multer 
+: 이미지, 동영상 등을 비롯한 여러가지 파일들을 멀티파트 형식으로 업로드할 때 사용하는 미들웨어. 
 
-### 6.dotenv
+-> 멀티파트 형식이란 enctype이 multipart/form-data인 폼을 통해 업로드하는 데이터의 형식을 의미함
 
-### 7.라우터 분리하기
+다음과 같은 multipart.html이 있으면 멀티파트 형식으로 데이터를 업로드할 수 있음
+```HTML
+<form action="/upload" method="post" enctype="multipart/form-data">
+  <input type="file" name="image" />
+  <input type="text" name="title" />
+  <button type="submit">업로드</button>
+</form>
+```
+-> 이러한 폼을 업로드하는 파일은 body-parser로 처리할 수 없고 직접 파싱하기도 어렵기에 `multer`라는 미들웨어를 사용하는 것이 편리하다
 
-### 8. Pug 템플릿 엔진
+- multer를 설치하자
+```BASH
+npm i multer
+```
+- multer 패키지 안에 여러 종류의 미들웨어가 들어있음
+```JS
+const multer = require('multer');
 
-
-### 9. 넌적스 템플릿 엔진
+const upload = multer({
+  storage: multer.diskStorage({
+    destination(req, file, done) {
+      done(null, 'uploads/');
+    },
+    filename(req, file, done) {
+      const ext = path.extname(file.originalname);
+      done(null, path.basename(file.originalname, ext) + Date.now() + ext); //파일명에 현재시간을 넣어주는 이유: 업로드하는 파일명 겹치는것을 막기위해
+    },
+  }),
+  limits: { fileSize: 5 * 1024 * 1024 }, 
+});
+```
+    - multer 함수의 인수로 설정을 넣음
+    - storage 속성에는 destination에 어떤 이름으로(filename) 저장할지를 넣음
+    - destination과 filename 함수의 req 매개변수에는 요청에 대한 정보가, file 객체에는 업로드한 파일에 대한 정보가 있음
+    - done 매개변수는 함수임
+        - 첫번째 인수에는 에러(에러가 있다면)
+        - 두번째 인수에는 실제 경로나 파일이름
+        - req, file의 데이터를 가공해서 done으로 넘기는 형식임
+    - limits 속성에는 업로드에 대한 제한 사항을 설정할 수 있음
 
