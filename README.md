@@ -29,7 +29,7 @@
 
 - [MySQL](https://github.com/posting-study/node_study/blob/main/postingFiles/MySQL.md)
 
-- [시퀄라이즈]
+- [시퀄라이즈](https://github.com/posting-study/node_study/blob/main/postingFiles/Sequelize.md)
 
 - [몽고디비]
 
