@@ -1,5 +1,7 @@
-# REPL(Read Eval Print Loop)
+# REPL(Read Evaluation Print Loop)
 : 읽고, 해석하고, 반환하고, 종료때까지 반복 -> 코드 실행
+사용자가 코드를 입력하면 그 코드를 평가하고 코드의 실행결과를 출력해주는 것을 반복해주는 환경을 말한다.
+node.js 에서 REPL 환경을 지원하기 때문에 자바스크립트 코드를 바로 실행해 결과를 확인해 볼 수 있다.
 
 # 노드 내장 객체
 - 노드에는 DOM이 존재하지 않음 -> window와 document 객체를 사용할 수 없음
