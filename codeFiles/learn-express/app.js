@@ -6,6 +6,8 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const { encode } = require('punycode');
 dotenv.config();
+const indexRouter = require('./routes');
+const userRouter = require('./routes/user');
 const app = express(); //Express 모듈을 실행해 app 변수에 할당 
 
 app.set('port', process.env.PORT || 3000);
@@ -27,7 +29,7 @@ app.get('/',(req,res,next)=>{
     httpOnly: true,
     path: '/',
   })
-  req.session.name = 'zerocho'; // 세션 등록
+  req.session.name = 'ss'; // 세션 등록
   req.sessionID; // 세션 아이디 확인
   req.session.destroy(); // 세션 모두 제거
 })

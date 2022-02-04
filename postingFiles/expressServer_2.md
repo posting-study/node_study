@@ -191,3 +191,6 @@ const upload = multer({
     - req, file의 데이터를 가공해서 done으로 넘기는 형식임
 - limits 속성에는 업로드에 대한 제한 사항을 설정할 수 있음
 
+### 6.dotenv 사용하기
+
+
