@@ -181,12 +181,13 @@ const upload = multer({
   limits: { fileSize: 5 * 1024 * 1024 }, 
 });
 ```
-    - multer 함수의 인수로 설정을 넣음
-    - storage 속성에는 destination에 어떤 이름으로(filename) 저장할지를 넣음
-    - destination과 filename 함수의 req 매개변수에는 요청에 대한 정보가, file 객체에는 업로드한 파일에 대한 정보가 있음
-    - done 매개변수는 함수임
-        - 첫번째 인수에는 에러(에러가 있다면)
-        - 두번째 인수에는 실제 경로나 파일이름
-        - req, file의 데이터를 가공해서 done으로 넘기는 형식임
-    - limits 속성에는 업로드에 대한 제한 사항을 설정할 수 있음
+
+- multer 함수의 인수로 설정을 넣음
+- storage 속성에는 destination에 어떤 이름으로(filename) 저장할지를 넣음
+- destination과 filename 함수의 req 매개변수에는 요청에 대한 정보가, file 객체에는 업로드한 파일에 대한 정보가 있음
+- done 매개변수는 함수임
+    - 첫번째 인수에는 에러(에러가 있다면)
+    - 두번째 인수에는 실제 경로나 파일이름
+    - req, file의 데이터를 가공해서 done으로 넘기는 형식임
+- limits 속성에는 업로드에 대한 제한 사항을 설정할 수 있음
 
