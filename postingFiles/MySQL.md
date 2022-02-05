@@ -24,16 +24,3 @@
 - `Update` 데이터 수정: `UPDATE 테이블명 SET 컬럼 = 새값 WHERE 조건`
 - `Delete` 데이터 삭제: `DELETE FROM 테이블명 WHERE 조건`
 
-
-## 시퀄라이즈 ORM
-: MySQL 작업을 쉽게 할 수 있도록 도와주는 라이브러리
-- ORM(Object Relational Mapping): 객체와 데이터를 1대1 매핑
-- js 문법으로 데이터베이스 조작 가능 (복잡한 쿼리를 다루기에는 한계가 있음) 
-
-=> 시퀄라이즈를 통해 익스프레스 앱과 MySQL을 연결해보자.
-
-```BASH
-npm i sequelize sequelize-cli mysql2
-```
-- sequelize-cli: 시퀄라이즈 명령어를 사용할 수 있게 해주는 패키지
-- mysql2: 노드와 mysql을 연결해주는 드라이버
