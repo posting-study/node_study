@@ -1,51 +1,46 @@
-const dotenv = require('dotenv');
-const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const { encode } = require('punycode');
+const dotenv = require('dotenv');
+const path = require('path');
+
 dotenv.config();
 const indexRouter = require('./routes');
 const userRouter = require('./routes/user');
-const app = express(); //Express 모듈을 실행해 app 변수에 할당 
 
+const app = express();
 app.set('port', process.env.PORT || 3000);
 
-app.use(morgan('dev')); //morgan
-
-app.use('/', express.static(path.join(__dirname, 'public'))); //static
-
-app.use(cookieParser()); //cookieParser
-app.get('/',(req,res,next)=>{
-  req.cookies //{mycookie: 'test' }
-  req.signedCookies; //서명화된(암호화된)쿠키
-  res.cookie('name',encodeURIComponent(name),{
-    expires: new Date(),
-    httpOnly: true,
-    path: '/',
-  })
-  res.clearCookie('name', encodeURIComponent(name),{ //쿠키 지우기도 간편
-    httpOnly: true,
-    path: '/',
-  })
-  req.session.name = 'ss'; // 세션 등록
-  req.sessionID; // 세션 아이디 확인
-  req.session.destroy(); // 세션 모두 제거
-})
-
-
+app.use(morgan('dev'));
+app.use('/', express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
-
-app.use(session({ //express-session
+app.use(session({
   resave: false,
   saveUninitialized: false,
   secret: process.env.COOKIE_SECRET,
   cookie: {
-    httpOnly: true, //클라이언트에서 쿠키를 확인하지 못함
-    secure: false, // https가 아닌 환경에서도 사용할 수 있게 함
-  }, //배포 시에는 https를 적용하고 secure도 true로 설정하는 것이 좋음
+    httpOnly: true,
+    secure: false,
+  },
   name: 'session-cookie',
 }));
+
+//라우터 분리
+app.use('/', indexRouter);
+app.use('/user', userRouter);
+
+app.use((req, res, next) => {
+  res.status(404).send('Not Found');
+});
+
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).send(err.message);
+});
+
+app.listen(app.get('port'), () => {
+  console.log(app.get('port'), '번 포트에서 대기 중');
+});

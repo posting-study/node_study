@@ -74,6 +74,24 @@ ex) name = cookie 라는 쿠키를 보냈다면, req.cookies는 {name: 'cookie'}
 
 - 쿠키를 생성 / 제거 하기 위해서는 `res.cookie`, `res.clearCookie` 메서드를 사용
 - 쿠키를 지우려면 키와 값, 옵션이 정확히 일치해야 지워짐.(단, expires나 maxAge 옵션은 불일치해도 됨)
+```JS
+app.get('/',(req,res,next)=>{ 
+  req.cookies //{mycookie: 'test' }
+  req.signedCookies; //서명화된(암호화된)쿠키
+  res.cookie('name',encodeURIComponent(name),{
+    expires: new Date(),
+    httpOnly: true,
+    path: '/',
+  })
+  res.clearCookie('name', encodeURIComponent(name),{ //쿠키 지우기도 간편
+    httpOnly: true,
+    path: '/',
+  })
+  req.session.name = 'ss'; // 세션 등록
+  req.sessionID; // 세션 아이디 확인
+  req.session.destroy(); // 세션 모두 제거
+})
+```
 
 ### 4.`express-session`
 : 세션 관리용 미들웨어. 세션을 구현하거나 특정 사용자를 위한 데이터를 임시적으로 저장해둘 때 유용함
@@ -92,7 +110,18 @@ ex) name = cookie 라는 쿠키를 보냈다면, req.cookies는 {name: 'cookie'}
 - 세션 쿠키의 모양
     - express-session에서 서명한 쿠키 앞에는 s:이 붙음
     - 실제로는 encodeURIComponent 함수가 실행되어 s%3A가 됨. s%3A의 뒷부분이 실제 암호화된 쿠키 내용이고, 이 모양을 보고 이 쿠키가 express-session 미들웨어에 의해 암호화된 것이라 알 수 있다.
-
+```JS
+app.use(session({ //express-session
+  resave: false,
+  saveUninitialized: false,
+  secret: process.env.COOKIE_SECRET,
+  cookie: {
+    httpOnly: true, //클라이언트에서 쿠키를 확인하지 못함
+    secure: false, // https가 아닌 환경에서도 사용할 수 있게 함
+  }, //배포 시에는 https를 적용하고 secure도 true로 설정하는 것이 좋음
+  name: 'connect.sid', //바꿀수 있지만(session-cookie 등) 기본값
+}));
+```
 
 ### 미들웨어 특성 총정리
 ```JS
@@ -190,7 +219,4 @@ const upload = multer({
     - 두번째 인수에는 실제 경로나 파일이름
     - req, file의 데이터를 가공해서 done으로 넘기는 형식임
 - limits 속성에는 업로드에 대한 제한 사항을 설정할 수 있음
-
-### 6.dotenv 사용하기
-
 

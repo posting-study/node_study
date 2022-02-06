@@ -94,13 +94,14 @@ app.post('/', (req, res) => { // 같은 주소로 response x
 
 
 ### 2. next 메서드 활용
-- error 처리시 catch에서 `next(error)`로 넘김. next 안에 인수가 존재하면, 다음 미들웨어를 실행시키는 것이 아니라 에러 핸들러로 바로 연결됨
+- error 처리시 catch에서 `next(error)`로 넘김. next 안에 인수가 존재하면, 다음 미들웨어를 실행시키는 것이 아니라 에러 핸들러(에러처리 미들웨어)로 바로 연결됨
+- 보통 throw error로 처리하는 경우는 거의 없다
 ```JS
 app.use((req,res,next) => {
   try{
     console.log("성공");
   }catch(error){
-    next(error);
+    next(error); //에러처리
   }
 })
 ```
@@ -118,7 +119,7 @@ app.use((req,res,next) => {
 
 
 
-
+ 
 
 
 
