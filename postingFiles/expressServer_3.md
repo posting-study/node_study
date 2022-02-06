@@ -49,8 +49,6 @@ router.route('/user')
     res.send('POST /user');
 });
 ```
-
-
 ### 8. req,res 객체 살펴보기
 
 ### 9. 템플릿 엔진 사용하기
