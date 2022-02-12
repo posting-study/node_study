@@ -12,7 +12,7 @@ nunjucks.configure('views', {
   express: app,
   watch: true,
 });
-sequelize.sync({ force: false })
+sequelize.sync({ force: false }) //sequelize를 통해 node에서 데이터베이스(mysql)을 연결함
   .then(() => {
     console.log('데이터베이스 연결 성공');
   })

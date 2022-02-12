@@ -7,7 +7,7 @@
 - JS 문법으로 데이터베이스 조작 가능(JS 구문을 알아서 SQL로 바꿔줌) 하지만 복잡한 쿼리를 다루기에는 한계가 있다.
 
 ## 시퀄라이즈 실행
-
+ 
 시퀄라이즈를 통해 익스프레스 앱과 MySQL을 연결해보자.
 
 1. 시퀄라이즈에 필요한 sequelize와 sequelize-cli, mysql2 패키지를 설치
@@ -22,5 +22,9 @@ npm i sequelize sequelize-cli mysql2
 npx sequelize init
 ```
 - config, models, migrations, seeders 폴더가 생성됨
-- models 폴더 안에 index.js가 생성되었는지 확인
+- models 폴더 안에 index.js가 생성되었는지 확인 (안의 코드 수정함)
+- index.js에서 mysql, sequelize, node가 연결됨
+
+3. public, routes, views 폴더를 만들고 app.js 파일을 생성한다.
+
 
