@@ -31,7 +31,7 @@
 
 - [시퀄라이즈](https://github.com/posting-study/node_study/blob/main/postingFiles/Sequelize.md)
 
-- [몽고디비]
+- [몽고디비](https://github.com/posting-study/node_study/blob/main/postingFiles/mongoDB.md)
 
 - [웹 API 서버 만들기]
 
