@@ -34,6 +34,25 @@ $ brew services start mongodb-community
 
 ## 데이터베이스 및 컬렉션 생성하기
 
+- 데이터베이스 생성 : `use [데이터베이스명]`
+```
+> use nodejs
+switched to db nodejs
+```
+- 데이터베이스 목록 확인: `show dbs`
+- 사용중인 데이터베이스 확인: `db`
+- 다큐먼트를 넣는 순간 컬렉션도 자동으로 생성되지만, 컬렉션을 생성하는 명령어가 있음: `db.createCollection('컬렉션이름')
+```
+> db.createCollection('users')
+{ "ok" : 1 }
+> db.createCollection('comments')
+{ "ok" : 1 }
 
+> show collections
+comments
+users
+```
 
+## CRUD 작업하기
 
+컬렉션에 컬럼을 정의하지 않아도 되기에 컬렉션에는 아무 데이터나 넣을 수 있다. 이런 자유로움이 몽고디비의 장점이면서, 무엇이 들어올지 모르는 단점도 있다. 몽고디비는 js 문법을 사용해서, MySQL과 조금 다른 js 자료형을 따르는데
