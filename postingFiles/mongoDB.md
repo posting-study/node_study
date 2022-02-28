@@ -32,6 +32,10 @@ $ brew install mongodb-community
 $ brew services start mongodb-community
 ```
 
+** admin 설정은 생략
+
+** 몽고디비는 관리도구로 compass를 제공한다. compass를 사용하면 GUI를 통해 데이터를 시각적으로 관리할 수 있는 편리함이 있다.
+
 ## 데이터베이스 및 컬렉션 생성하기
 
 - 데이터베이스 생성 : `use [데이터베이스명]`
@@ -55,4 +59,77 @@ users
 
 ## CRUD 작업하기
 
-컬렉션에 컬럼을 정의하지 않아도 되기에 컬렉션에는 아무 데이터나 넣을 수 있다. 이런 자유로움이 몽고디비의 장점이면서, 무엇이 들어올지 모르는 단점도 있다. 몽고디비는 js 문법을 사용해서, MySQL과 조금 다른 js 자료형을 따르는데
+### 1. Create(생성)
+
+컬렉션에 컬럼을 정의하지 않아도 되기에 컬렉션에는 아무 데이터나 넣을 수 있다. 이런 자유로움이 몽고디비의 장점이면서, 무엇이 들어올지 모르는 단점도 있다. 몽고디비는 js 문법을 사용해서 MySQL과 조금 다른 js 자료형을 따르고, 추가로 몇가지 자료형이 있다.
+
+- 다큐먼트 생성: `db.컬렉션명.save(다큐먼트)` -> 다큐먼트 생성은 js 객체처럼 생성함
+```
+> db.users.save({ name: 'zero', age: 24, married: false, comment: '안녕하세요. 간단히 몽고디비 사용 방법에 대해 알아봅시다.', createdAt: new Date() });
+
+WriteResult({ "nInserted" : 1 }) -> 다큐먼트 한개가 생성되었다는 응답
+```
+
+- 관계 설정: 컬렉션 간 관계를 강요하는 제한이 없기 때문에 직접 `ObjectId`를 넣어서 연결한다.
+
+데이터의 ObjectId를 조회한 후 comments 컬렉션에 commenters에 연결한다.
+```
+> db.users.find({ name: 'zero' }, { _id: 1 })
+{ "_id" : ObjectId("5a1687007af03c3700826f70") } -> 연결
+
+> db.comments.save({ commenter: ObjectId('5a1687007af03c3700826f70'), comment: '안녕하세요. zero의 댓글입니다.', createdAt: new Date() });
+WriteResult({ "nInserted" : 1 })
+```
+
+### 2. Read(조회)
+
+- 컬렉션 내의 모든 다큐먼트 조회: `find({})`
+- 하나만 조회: `findOne({})`
+```
+> db.users.find({});
+// users 컬렉션의 모든 다큐먼트가 나옴
+
+> db.comments.find({})
+// comments 컬렉션의 모든 다큐먼트가 나옴
+```
+- 첫번째 인수로 조회 조건을 입력할 수 있다 
+
+`$gt(초과), $gte(이상), $lt(미만), $lte(이하), $ne(같지 않음), $or(또는), $in(배열 요소 중 하나)` 
+```
+> db.users.find({ age: { $gt: 30 }, married: true }, { _id: 0, name: 1, age: 1 });
+{ "name" : "nero", "age" : 32 }
+```
+
+- 두번째 인수로 조회할 특정 필드를 선택할 수 있다.(1은 추가, 0은 제외)
+
+(불필요한 필드의 경우 _id를 0으로 지정해놓은것처럼, 특정 값을 제거할 수 있다)
+
+-> users에서 name과 married 필드를 조회해보자.
+```
+> db.users.find({}, { _id: 0, name: 1, married: 1 });
+{ "name" : "zero", "married" : false }
+{ "name" : "nero", "married" : true }
+```
+
+- sort(정렬), limit(조회할 다큐먼트 개수 제한), skip(건너뛸 다큐먼트 개수) 메서드를 이용해 조회할 수 있다.
+
+### 3. Update(수정)
+
+- 첫번째 인수로 수정 대상을, 두번째 인수로 수정 내용을 제공한다
+- `$set`을 붙이지 않으면 다큐먼트 전체가 대체되므로 주의한다
+```
+> db.users.update({ name: 'nero' }, { $set: { comment: '이 필드를 바꿔보자!' } });
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+```
+- 수정에 성공했다면 첫 번째 객체에 해당하는 다큐먼트 수(nMatched)와 수정된 다큐먼트 수(nModified)가 나온다
+
+### 4. Delete(삭제)
+
+- 첫번째 인수로 삭제할 다큐먼트에 관한 객체를 제공한다
+- 성공 시 삭제된 개수가 반환된다
+```
+> db.users.remove({ name: 'nero' })
+WriteResult({ 'nRemoved': 1 })
+```
+
+
