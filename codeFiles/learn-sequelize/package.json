@@ -6,6 +6,5 @@
   "scripts": {
     "start": "nodemon app"
   },
-  "author": "ZeroCho",
   "license": "MIT"
 }
