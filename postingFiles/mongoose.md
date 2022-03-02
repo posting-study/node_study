@@ -12,6 +12,21 @@ MySQL에 시퀄라이즈가 있다면, 몽고디비에는 몽구스가 있다.
 
 ## 몽고디비 연결하기
 
+1. 몽고디비는 주소를 사용해 연결한다. 
 
+- 주소 형식: `mongodb://[username:password@]host[:port][/[database][?options]]`
 
+    username과 password에 몽고디비 계정 이름과 비밀번호를 넣고, host가 localhost, port가 27017, 계정이 있는 database가 admin이므로 주소는 mongodb://이름:비밀번호@localhost:27017/admin이 된다.
+
+- schemas 폴더를 루트 디렉토리에 생성하고 폴더 안에 index.js 파일에 몽고디비를 주소로 연결한다.
+
+2. app.js를 만들고 schemas/index.js와 연결한다.
+
+3. 스키마 정의
+
+- 시퀄라이즈에서 테이블을 만들었던 것처럼 schemas 폴더 안에 몽구스 스키마를 만든다. (예시로 써온 user, comment 스키마를 만든다)
+
+- MySQL의 테이블처럼 정해진 데이터만 들어갈 수 있게 강제한다
+
+- type: 자료형, require: 필수 여부, default: 기본값, unique: 고유 여부
 
