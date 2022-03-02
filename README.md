@@ -33,6 +33,8 @@
 
 - [몽고디비](https://github.com/posting-study/node_study/blob/main/postingFiles/mongoDB.md)
 
+- [몽구스](https://github.com/posting-study/node_study/blob/main/postingFiles/mongoose.md)
+
 - [웹 API 서버 만들기]
 
 - [노드 서비스 테스트하기]
